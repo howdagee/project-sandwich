@@ -1,7 +1,5 @@
 package com.udacity.sandwichclub.utils;
 
-import android.util.Log;
-
 import com.udacity.sandwichclub.model.Sandwich;
 
 import org.json.JSONArray;
@@ -13,21 +11,29 @@ import java.util.List;
 
 public class JsonUtils {
 
+    public static final String KEY_NAME = "name";
+    public static final String KEY_MAIN_NAME = "mainName";
+    public static final String KEY_ALSO_KNOWN_AS = "alsoKnownAs";
+    public static final String KEY_PLACE_OF_ORIGIN = "placeOfOrigin";
+    public static final String KEY_DESCRIPTION = "description";
+    public static final String KEY_IMAGE = "image";
+    public static final String KEY_INGREDIENTS = "ingredients";
+
     public static Sandwich parseSandwichJson(String json) {
 
         try {
             JSONObject sandwich = new JSONObject(json);
 
-            JSONObject nameFields = sandwich.getJSONObject("name");
-            JSONArray listOfOtherNames = nameFields.getJSONArray("alsoKnownAs");
+            JSONObject nameFields = sandwich.getJSONObject(KEY_NAME);
+            JSONArray listOfOtherNames = nameFields.getJSONArray(KEY_ALSO_KNOWN_AS);
 
-            String mainName = nameFields.getString("mainName");
+            String mainName = nameFields.getString(KEY_MAIN_NAME);
             List<String> akaList = buildTheList(listOfOtherNames);
-            String placeOfOrigin = sandwich.getString("placeOfOrigin");
-            String description = sandwich.getString("description");
-            String image = sandwich.getString("image");
+            String placeOfOrigin = sandwich.getString(KEY_PLACE_OF_ORIGIN);
+            String description = sandwich.getString(KEY_DESCRIPTION);
+            String image = sandwich.getString(KEY_IMAGE);
 
-            JSONArray ingredientsArray = sandwich.getJSONArray("ingredients");
+            JSONArray ingredientsArray = sandwich.getJSONArray(KEY_INGREDIENTS);
             List<String> ingredientsList = buildTheList(ingredientsArray);
 
             return new Sandwich(
