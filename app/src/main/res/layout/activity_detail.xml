@@ -6,7 +6,7 @@
 
     <LinearLayout xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         tools:context="com.udacity.sandwichclub.DetailActivity">
 
@@ -47,7 +47,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/detail_ingredients_label"
                 android:textAppearance="@android:style/TextAppearance.Medium"
-
+                android:layout_marginTop="16dp"
                 android:textStyle="bold" />
 
             <TextView
@@ -60,6 +60,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/detail_place_of_origin_label"
                 android:textAppearance="@android:style/TextAppearance.Medium"
+                android:layout_marginTop="16dp"
                 android:textStyle="bold" />
 
             <TextView

@@ -1,5 +1,7 @@
 package com.udacity.sandwichclub.utils;
 
+import android.util.Log;
+
 import com.udacity.sandwichclub.model.Sandwich;
 
 import org.json.JSONArray;
@@ -18,22 +20,23 @@ public class JsonUtils {
     public static final String KEY_DESCRIPTION = "description";
     public static final String KEY_IMAGE = "image";
     public static final String KEY_INGREDIENTS = "ingredients";
+    public static final String FALL_BACK_STRING = "?";
 
     public static Sandwich parseSandwichJson(String json) {
 
         try {
             JSONObject sandwich = new JSONObject(json);
 
-            JSONObject nameFields = sandwich.getJSONObject(KEY_NAME);
-            JSONArray listOfOtherNames = nameFields.getJSONArray(KEY_ALSO_KNOWN_AS);
+            JSONObject nameFields = sandwich.optJSONObject(KEY_NAME);
+            JSONArray listOfOtherNames = nameFields.optJSONArray(KEY_ALSO_KNOWN_AS);
 
-            String mainName = nameFields.getString(KEY_MAIN_NAME);
+            String mainName = nameFields.optString(KEY_MAIN_NAME, FALL_BACK_STRING);
             List<String> akaList = buildTheList(listOfOtherNames);
-            String placeOfOrigin = sandwich.getString(KEY_PLACE_OF_ORIGIN);
-            String description = sandwich.getString(KEY_DESCRIPTION);
-            String image = sandwich.getString(KEY_IMAGE);
+            String placeOfOrigin = sandwich.optString(KEY_PLACE_OF_ORIGIN, FALL_BACK_STRING);
+            String description = sandwich.optString(KEY_DESCRIPTION, FALL_BACK_STRING);
+            String image = sandwich.optString(KEY_IMAGE, FALL_BACK_STRING);
 
-            JSONArray ingredientsArray = sandwich.getJSONArray(KEY_INGREDIENTS);
+            JSONArray ingredientsArray = sandwich.optJSONArray(KEY_INGREDIENTS);
             List<String> ingredientsList = buildTheList(ingredientsArray);
 
             return new Sandwich(
@@ -48,11 +51,7 @@ public class JsonUtils {
 
         List<String> listData = new ArrayList<>(data.length());
         for (int i = 0; i < data.length(); i++) {
-            try {
-                listData.add(data.getString(i));
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+                listData.add(data.optString(i, FALL_BACK_STRING));
         }
         return listData;
     }

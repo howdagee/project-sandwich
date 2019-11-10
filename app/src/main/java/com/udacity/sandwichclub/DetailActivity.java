@@ -3,6 +3,7 @@ package com.udacity.sandwichclub;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -89,15 +90,11 @@ public class DetailActivity extends AppCompatActivity {
         }
     }
 
-    private StringBuilder buildListItems(List<String> listItems) {
-        StringBuilder stringBuilder = new StringBuilder();
+    private String buildListItems(List<String> listItems) {
         if (listItems.size() > 0) {
-            for (String item : listItems) {
-                stringBuilder.append("\t- ").append(item).append("\n");
-            }
-            return stringBuilder;
+           return "\t" + TextUtils.join("\n\t", listItems);
         } else {
-            return stringBuilder.append("\tN/A\n");
+            return "\tN/A";
         }
     }
 }
